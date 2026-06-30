@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Applications</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/jobs">🎓 Student Dashboard</a>
+        <a href="/my-applications" class="active">📋 My Applications</a>
+        <a href="/my-profile">👤 My Profile</a>
+    </div>
+
+    <div class="layout">
+        <div class="main" style="width:100%;">
+            <h2>My Applications</h2>
+
+            <p th:if="${applications.isEmpty()}">You haven't applied to any jobs yet.</p>
+
+            <div class="job-card" th:each="app : ${applications}">
+                <div style="display:flex;">
+                    <div class="company-logo"
+                         th:style="'background:' + ${app.job.company.companyName.hashCode() % 2 == 0 ? '#2962ff' : '#1aa260'}"
+                         th:text="${#strings.substring(app.job.company.companyName,0,2)}">TC</div>
+                    <div>
+                        <h3 style="margin:0;" th:text="${app.job.title}">Job Title</h3>
+                        <p style="margin:2px 0; color:#666;" th:text="${app.job.company.companyName}">Company</p>
+                        <p style="margin:2px 0; color:#999; font-size:13px;"
+                           th:text="'Applied on ' + ${#temporals.format(app.appliedAt, 'dd MMM yyyy, hh:mm a')}">Applied date</p>
+                    </div>
+                </div>
+                <div style="align-self:center;">
+                    <span th:if="${app.status == 'PENDING'}" class="job-tag" style="background:#fff3cd; color:#856404; font-weight:600;">PENDING</span>
+                    <span th:if="${app.status == 'SHORTLISTED'}" class="job-tag" style="background:#d4edda; color:#155724; font-weight:600;">SHORTLISTED</span>
+                    <span th:if="${app.status == 'REJECTED'}" class="job-tag" style="background:#f8d7da; color:#721c24; font-weight:600;">REJECTED</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

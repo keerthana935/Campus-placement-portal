@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Applicants</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/company/my-jobs" class="active">🏢 My Jobs</a>
+        <a href="/company/post-job">➕ Post Job</a>
+    </div>
+
+    <div class="layout">
+        <div class="main" style="width:100%;">
+            <h2>Applicants</h2>
+
+            <p th:if="${applications.isEmpty()}">No applicants yet.</p>
+
+            <table class="applicant-table" th:if="${!applications.isEmpty()}">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Branch</th>
+                    <th>CGPA</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="app : ${applications}">
+                    <td th:text="${app.student.name}">Name</td>
+                    <td th:text="${app.student.email}">Email</td>
+                    <td th:text="${app.student.branch}">Branch</td>
+                    <td th:text="${app.student.cgpa}">CGPA</td>
+                    <td th:text="${app.status}">Status</td>
+                    <td>
+                        <a th:href="@{'/company/application/' + ${app.id} + '/shortlist'}" class="action-link">Shortlist</a>
+                        <a th:href="@{'/company/application/' + ${app.id} + '/reject'}" class="action-link reject">Reject</a>
+                    </td>
+                </tr>
+            </table>
+
+            <br>
+            <a href="/company/my-jobs" class="action-link">← Back to My Jobs</a>
+        </div>
+    </div>
+
+</body>
+</html>

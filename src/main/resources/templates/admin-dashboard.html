@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/admin/dashboard" class="active">⚙️ Dashboard</a>
+        <a href="/admin/students">🎓 Students</a>
+        <a href="/admin/companies">🏢 Companies</a>
+    </div>
+
+    <div class="layout">
+        <div class="main" style="width:100%;">
+            <h2>Admin Dashboard</h2>
+
+            <div class="stats-grid" style="grid-template-columns: repeat(4, 1fr); max-width:800px;">
+                <div class="stat-box">
+                    <div class="num" th:text="${totalStudents}">0</div>
+                    <div>STUDENTS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num" style="color:#1aa260;" th:text="${totalCompanies}">0</div>
+                    <div>COMPANIES</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num" style="color:#2962ff;" th:text="${totalJobs}">0</div>
+                    <div>JOBS</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num" style="color:#856404;" th:text="${totalApplications}">0</div>
+                    <div>APPLICATIONS</div>
+                </div>
+            </div>
+
+            <div style="display:flex; gap:20px; margin-top:30px; flex-wrap:wrap;">
+                <div class="job-card" style="display:block; flex:1; min-width:320px;">
+                    <h3>Applications by Status</h3>
+                    <div style="position:relative; height:250px;">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+                <div class="job-card" style="display:block; flex:1; min-width:320px;">
+                    <h3>Students by Branch</h3>
+                    <div style="position:relative; height:250px;">
+                        <canvas id="branchChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script th:inline="javascript">
+        const statusLabels = /*[[${statusLabels}]]*/ [];
+        const statusCounts = /*[[${statusCounts}]]*/ [];
+        const branchLabels = /*[[${branchLabels}]]*/ [];
+        const branchCounts = /*[[${branchCounts}]]*/ [];
+
+        new Chart(document.getElementById('statusChart'), {
+            type: 'bar',
+            data: {
+                labels: statusLabels,
+                datasets: [{
+                    label: 'Applications',
+                    data: statusCounts,
+                    backgroundColor: ['#fff3cd', '#d4edda', '#f8d7da'],
+                    borderColor: ['#856404', '#155724', '#721c24'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } }
+            }
+        });
+
+        new Chart(document.getElementById('branchChart'), {
+            type: 'pie',
+            data: {
+                labels: branchLabels,
+                datasets: [{
+                    data: branchCounts,
+                    backgroundColor: ['#4f5fdc', '#1aa260', '#2962ff', '#e67e22', '#9b59b6', '#e74c3c']
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
+
+</body>
+</html>

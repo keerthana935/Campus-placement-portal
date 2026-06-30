@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Students</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/admin/dashboard">⚙️ Dashboard</a>
+        <a href="/admin/students" class="active">🎓 Students</a>
+        <a href="/admin/companies">🏢 Companies</a>
+    </div>
+
+    <div class="layout">
+        <div class="main" style="width:100%;">
+            <h2>All Students</h2>
+
+            <table class="applicant-table">
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Branch</th>
+                    <th>CGPA</th>
+                </tr>
+                <tr th:each="s : ${students}">
+                    <td th:text="${s.name}">Name</td>
+                    <td th:text="${s.email}">Email</td>
+                    <td th:text="${s.branch}">Branch</td>
+                    <td th:text="${s.cgpa}">CGPA</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Jobs</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/company/my-jobs" class="active">🏢 My Jobs</a>
+        <a href="/company/post-job">➕ Post Job</a>
+    </div>
+
+    <div class="layout">
+        <div class="main" style="width:100%;">
+            <h2>My Posted Jobs</h2>
+
+            <p th:if="${jobs.isEmpty()}">You haven't posted any jobs yet.</p>
+
+            <div class="job-card" th:each="job : ${jobs}">
+                <div>
+                    <h3 style="margin:0;" th:text="${job.title}">Job Title</h3>
+                    <p style="margin:2px 0; color:#666;"
+                       th:text="${job.location + ' • ' + job.packageRange}">Location • Package</p>
+                    <div>
+                        <span class="job-tag" th:text="${job.jobType}">Full-time</span>
+                        <span class="job-tag" th:text="${job.openings + ' openings'}">Openings</span>
+                    </div>
+                </div>
+                <div style="text-align:right;">
+                    <p style="margin:0 0 8px; color:#4f5fdc; font-weight:600;"
+                       th:text="${job.applicantCount} + ' applicants'">0 applicants</p>
+                    <a th:href="@{'/company/job/' + ${job.id} + '/applicants'}" class="apply-btn">View Applicants</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

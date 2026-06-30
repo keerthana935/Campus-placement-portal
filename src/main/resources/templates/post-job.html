@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Post a Job</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/company/my-jobs">🏢 My Jobs</a>
+        <a href="/company/post-job" class="active">➕ Post Job</a>
+    </div>
+
+    <div class="layout">
+        <div class="main" style="width:100%;">
+            <h2>Post a New Job</h2>
+
+            <div class="form-card">
+                <form method="POST" th:action="@{/company/post-job}">
+
+                    <label>Job Title</label>
+                    <input type="text" name="title" required />
+
+                    <label>Description</label>
+                    <textarea name="description" rows="3" required></textarea>
+
+                    <label>Location</label>
+                    <input type="text" name="location" required />
+
+                    <label>Package Range (e.g. 8-12 LPA)</label>
+                    <input type="text" name="packageRange" required />
+
+                    <label>Openings</label>
+                    <input type="number" name="openings" required />
+
+                    <label>Required Skills</label>
+                    <input type="text" name="requiredSkills" required />
+
+                    <label>Job Type</label>
+                    <select name="jobType">
+                        <option value="FULLTIME">Full-time</option>
+                        <option value="INTERNSHIP">Internship</option>
+                    </select>
+
+                    <label>Deadline (days from today)</label>
+                    <input type="number" name="deadlineDays" required />
+
+                    <button type="submit" class="btn-primary">Post Job</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Companies</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/admin/dashboard">⚙️ Dashboard</a>
+        <a href="/admin/students">🎓 Students</a>
+        <a href="/admin/companies" class="active">🏢 Companies</a>
+    </div>
+
+    <div class="layout">
+        <div class="main" style="width:100%;">
+            <h2>All Companies</h2>
+
+            <table class="applicant-table">
+                <tr>
+                    <th>Company Name</th>
+                    <th>Email</th>
+                    <th>Sector</th>
+                    <th>Location</th>
+                    <th>Approved</th>
+                </tr>
+                <tr th:each="c : ${companies}">
+                    <td th:text="${c.companyName}">Name</td>
+                    <td th:text="${c.email}">Email</td>
+                    <td th:text="${c.sector}">Sector</td>
+                    <td th:text="${c.location}">Location</td>
+                    <td th:text="${c.isApproved}">true</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</body>
+</html>

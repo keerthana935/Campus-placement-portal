@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/jobs" class="active">🎓 Student Dashboard</a>
+        <a href="/my-applications">📋 My Applications</a>
+        <a href="/my-profile">👤 My Profile</a>
+    </div>
+
+    <div class="layout">
+        <div class="sidebar">
+            <div class="avatar" th:text="${#strings.substring(student.name,0,1)}">A</div>
+            <h3 th:text="${student.name}">Student Name</h3>
+            <p style="color:#888; margin:0;" th:text="${student.branch}">Branch</p>
+            <p style="color:#888; margin:0;">CGPA: <span th:text="${student.cgpa}">0.0</span></p>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <div class="num" th:text="${appliedCount}">0</div>
+                    <div>APPLIED</div>
+                </div>
+                <div class="stat-box">
+                    <div class="num" style="color:#2e7d32;" th:text="${shortlistedCount}">0</div>
+                    <div>SHORTLISTED</div>
+                </div>
+            </div>
+
+            <div style="text-align:left; margin-top:15px;">
+                <p style="color:#888; font-size:13px; margin-bottom:5px;">SKILLS</p>
+                <span class="skill-tag" th:each="skill : ${skillsList}" th:text="${skill}">Skill</span>
+            </div>
+        </div>
+
+        <div class="main">
+            <h2>Available Jobs</h2>
+
+            <div class="search-bar">
+                <input type="text" id="searchInput" placeholder="🔍 Search jobs, skills, company..."/>
+                <select id="typeFilter">
+                    <option value="">All Types</option>
+                    <option value="FULLTIME">Full-time</option>
+                    <option value="INTERNSHIP">Internship</option>
+                </select>
+                <select id="cityFilter">
+                    <option value="">All Cities</option>
+                    <option th:each="loc : ${cities}" th:value="${loc}" th:text="${loc}">City</option>
+                </select>
+            </div>
+
+            <p id="noResults" style="display:none; color:#888;">No jobs match your search.</p>
+
+            <div id="jobList">
+                <div class="job-card"
+                     th:each="job : ${jobs}"
+                     th:data-title="${job.title}"
+                     th:data-company="${job.company.companyName}"
+                     th:data-skills="${job.requiredSkills}"
+                     th:data-type="${job.jobType}"
+                     th:data-city="${job.location}">
+                    <div style="display:flex;">
+                        <div class="company-logo"
+                             th:style="'background:' + ${job.company.companyName.hashCode() % 2 == 0 ? '#2962ff' : '#1aa260'}"
+                             th:text="${#strings.substring(job.company.companyName,0,2)}">TC</div>
+                        <div>
+                            <h3 style="margin:0;" th:text="${job.title}">Job Title</h3>
+                            <p style="margin:2px 0; color:#666;"
+                               th:text="${job.company.companyName + ' • ' + job.location}">Company • City</p>
+                            <div>
+                                <span class="job-tag" th:text="${job.jobType}">Full-time</span>
+                                <span class="job-tag" th:text="${job.packageRange}">₹ Package</span>
+                                <span class="job-tag" th:text="${job.openings + ' openings'}">Openings</span>
+                                <span class="job-tag" th:text="${job.requiredSkills}">Skills</span>
+                                <span th:if="${job.daysLeft <= 3}"
+                                      class="job-tag" style="background:#f8d7da; color:#721c24; font-weight:600;"
+                                      th:text="${job.daysLeft} + ' days left'">3 days left</span>
+                                <span th:if="${job.daysLeft > 3}"
+                                      class="job-tag" style="background:#d4edda; color:#155724;"
+                                      th:text="${job.daysLeft} + ' days left'">10 days left</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <a th:if="${!appliedJobIds.contains(job.id)}" th:href="@{'/apply/' + ${job.id}}">
+                            <button class="apply-btn">Apply</button>
+                        </a>
+                        <span th:if="${appliedJobIds.contains(job.id)}" style="color:#2e7d32; font-weight:500;">✅ Applied</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const typeFilter = document.getElementById('typeFilter');
+        const cityFilter = document.getElementById('cityFilter');
+        const cards = Array.from(document.querySelectorAll('#jobList .job-card'));
+        const noResults = document.getElementById('noResults');
+
+        function applyFilters() {
+            const query = searchInput.value.trim().toLowerCase();
+            const type = typeFilter.value;
+            const city = cityFilter.value;
+            let visibleCount = 0;
+
+            cards.forEach(card => {
+                const title = card.dataset.title.toLowerCase();
+                const company = card.dataset.company.toLowerCase();
+                const skills = card.dataset.skills.toLowerCase();
+                const cardType = card.dataset.type;
+                const cardCity = card.dataset.city;
+
+                const matchesQuery = !query || title.includes(query) || company.includes(query) || skills.includes(query);
+                const matchesType = !type || cardType === type;
+                const matchesCity = !city || cardCity === city;
+
+                const visible = matchesQuery && matchesType && matchesCity;
+                card.style.display = visible ? 'flex' : 'none';
+                if (visible) visibleCount++;
+            });
+
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+        typeFilter.addEventListener('change', applyFilters);
+        cityFilter.addEventListener('change', applyFilters);
+    </script>
+
+</body>
+</html>

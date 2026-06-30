@@ -1,0 +1,210 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #f7f8fb;
+    margin: 0;
+}
+.navbar {
+    background: linear-gradient(90deg, #4f5fdc, #6b6fe0);
+    color: white;
+    padding: 12px 30px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.tabs {
+    display: flex;
+    gap: 10px;
+    padding: 15px 30px;
+    background: white;
+    border-bottom: 1px solid #eee;
+}
+.tabs a {
+    text-decoration: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: #333;
+    font-weight: 500;
+}
+.tabs a.active {
+    background: #eef0ff;
+    color: #4f5fdc;
+}
+.layout {
+    display: flex;
+    gap: 20px;
+    padding: 20px 30px;
+    box-sizing: border-box;
+}
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    text-align: center;
+    box-sizing: border-box;
+}
+.avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: #4f5fdc;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 22px;
+    margin: 0 auto 10px;
+}
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+.stat-box {
+    border: 1px solid #eee;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+}
+.stat-box .num { font-size: 20px; font-weight: bold; }
+.skill-tag {
+    display: inline-block;
+    background: #eef0ff;
+    color: #4f5fdc;
+    border-radius: 14px;
+    padding: 4px 10px;
+    font-size: 12px;
+    margin: 3px;
+}
+.main {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}
+.job-card {
+    background: white;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 14px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-sizing: border-box;
+}
+.company-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 12px;
+    flex-shrink: 0;
+}
+.job-tag {
+    display: inline-block;
+    background: #f1f2f6;
+    border-radius: 12px;
+    padding: 3px 10px;
+    font-size: 12px;
+    margin: 2px;
+    white-space: nowrap;
+}
+.apply-btn {
+    border: 1px solid #ccc;
+    background: white;
+    border-radius: 8px;
+    padding: 8px 18px;
+    cursor: pointer;
+    font-weight: 500;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #333;
+    display: inline-block;
+}
+.apply-btn:hover {
+    background: #4f5fdc;
+    color: white;
+}
+.search-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+.search-bar input, .search-bar select {
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+.search-bar input {
+    flex: 1;
+}
+.form-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    max-width: 600px;
+}
+.form-card label {
+    font-weight: 600;
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 4px;
+}
+.form-card input, .form-card select, .form-card textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    font-family: inherit;
+}
+.btn-primary {
+    background: #4f5fdc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 16px;
+}
+.btn-primary:hover {
+    background: #3d4cc4;
+}
+table.applicant-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+table.applicant-table th, table.applicant-table td {
+    padding: 12px 16px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+table.applicant-table th {
+    background: #f7f8fb;
+    font-weight: 600;
+    color: #555;
+}
+.action-link {
+    color: #4f5fdc;
+    text-decoration: none;
+    font-weight: 500;
+    margin-right: 10px;
+}
+.action-link.reject {
+    color: #c0392b;
+}

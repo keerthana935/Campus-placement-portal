@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>My Profile</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar" style="display:flex; justify-content:space-between; align-items:center;">
+        <span>🎓 CampusHire Placement Portal</span>
+        <a href="/logout" style="color:white; text-decoration:underline; font-size:14px; font-weight:normal;">Logout</a>
+    </div>
+
+    <div class="tabs">
+        <a href="/jobs">🎓 Student Dashboard</a>
+        <a href="/my-applications">📋 My Applications</a>
+        <a href="/my-profile" class="active">👤 My Profile</a>
+    </div>
+
+    <div class="layout">
+        <div class="main" style="width:100%; max-width:600px;">
+            <h2>My Profile</h2>
+
+            <div class="job-card" style="display:block;">
+                <form method="POST" th:action="@{/my-profile}">
+
+                    <label style="font-weight:600;">Name</label><br>
+                    <input type="text" name="name" th:value="${student.name}"
+                           style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd; margin:6px 0 16px;" />
+
+                    <label style="font-weight:600;">Branch</label><br>
+                    <input type="text" name="branch" th:value="${student.branch}"
+                           style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd; margin:6px 0 16px;" />
+
+                    <label style="font-weight:600;">CGPA</label><br>
+                    <input type="text" name="cgpa" th:value="${student.cgpa}"
+                           style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd; margin:6px 0 16px;" />
+
+                    <label style="font-weight:600;">Skills (comma separated)</label><br>
+                    <input type="text" name="skills" th:value="${student.skills}"
+                           placeholder="Java, Spring Boot, MySQL"
+                           style="width:100%; padding:10px; border-radius:8px; border:1px solid #ddd; margin:6px 0 16px;" />
+
+                    <button type="submit" class="apply-btn" style="background:#4f5fdc; color:white; border:none;">Save Changes</button>
+                </form>
+            </div>
+
+            <div th:if="${saved}" style="color:#155724; background:#d4edda; padding:10px; border-radius:8px; margin-top:10px;">
+                ✅ Profile updated successfully!
+            </div>
+
+            <h3 style="margin-top:30px;">Resume</h3>
+            <div class="job-card" style="display:block;">
+                <p th:if="${student.resumePath == null}">No resume uploaded yet.</p>
+                <p th:if="${student.resumePath != null}" th:text="'Uploaded: ' + ${student.resumePath}">Uploaded file</p>
+
+                <form method="POST" th:action="@{/upload-resume}" enctype="multipart/form-data">
+                    <input type="file" name="resume" accept="application/pdf" />
+                    <button type="submit" class="apply-btn" style="margin-top:10px;">Upload Resume</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
