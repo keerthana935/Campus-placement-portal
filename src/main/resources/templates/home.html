@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CampusHire Placement Portal</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="navbar">🎓 CampusHire Placement Portal</div>
+
+    <div style="max-width:700px; margin:80px auto; text-align:center;">
+        <h1 style="font-size:36px; margin-bottom:10px;">Welcome to CampusHire 🎓</h1>
+        <p style="color:#666; font-size:16px; margin-bottom:40px;">
+            A complete Campus Recruitment Portal — find jobs, post openings, and manage placements all in one place.
+        </p>
+
+        <div style="display:flex; gap:20px; justify-content:center; flex-wrap:wrap; margin-bottom:50px;">
+            <div class="job-card" style="display:block; width:220px; text-align:center;">
+                <h3>🎓 Student</h3>
+                <p style="color:#666; font-size:14px;">Browse jobs, apply, and track your applications.</p>
+                <a href="/register" class="apply-btn" style="display:inline-block; margin-top:10px;">Register</a>
+                <a href="/login" class="apply-btn" style="display:inline-block; margin-top:6px;">Login</a>
+            </div>
+
+            <div class="job-card" style="display:block; width:220px; text-align:center;">
+                <h3>🏢 Company</h3>
+                <p style="color:#666; font-size:14px;">Post jobs and find the right candidates.</p>
+                <a href="/company/register" class="apply-btn" style="display:inline-block; margin-top:10px;">Register</a>
+                <a href="/login" class="apply-btn" style="display:inline-block; margin-top:6px;">Login</a>
+            </div>
+
+            <div class="job-card" style="display:block; width:220px; text-align:center;">
+                <h3>⚙️ Admin</h3>
+                <p style="color:#666; font-size:14px;">Manage students, companies, and view analytics.</p>
+                <a href="/login" class="apply-btn" style="display:inline-block; margin-top:10px;">Login</a>
+            </div>
+        </div>
+
+        <div style="background:#eef0ff; border-radius:10px; padding:20px; text-align:left;">
+            <h3 style="margin-top:0;">🧪 Try the Demo</h3>
+            <p style="margin:4px 0;"><b>Admin login:</b> admin@campus.com / admin123</p>
+            <p style="margin:4px 0;">Or register your own Student/Company account to explore!</p>
+        </div>
+    </div>
+
+</body>
+</html>
