@@ -33,11 +33,25 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
             .authenticationProvider(authenticationProvider())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/", "/register", "/login", "/company/register", "/css/**").permitAll()
+                .requestMatchers("/", "/register", "/login",
+                                 "/company/register", "/css/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated()
             )
-            .formLogin(form -> form.permitAll());
+            .formLogin(form -> form
+                .loginPage("/login")
+                .successHandler((request, response, authentication) -> {
+                    String role = authentication.getAuthorities().toString();
+                    if (role.contains("ADMIN")) {
+                        response.sendRedirect("/admin/dashboard");
+                    } else if (role.contains("COMPANY")) {
+                        response.sendRedirect("/company/my-jobs");
+                    } else {
+                        response.sendRedirect("/jobs");
+                    }
+                })
+                .permitAll()
+            );
         return http.build();
     }
 }
